@@ -1,15 +1,15 @@
 {
-	"name": "obsidian-sample-plugin",
+	"name": "obsidian-Insert-RTL-Invisible-Character",
 	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"description": "this plugin is insert a invisible RTL character(U+061C) in the Unicode after the cursor, so that other plugins or file can display text in a right way.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": ["obsidian", "plugin", "rtl", "bidirectional", "zwj", "zwnj", "invisible", "character", "unicode", "Uyghur", "arabic", "hebrew", "persian", "urdu"],
+	"author": "UyCode",
 	"license": "MIT",
 	"devDependencies": {
 		"@types/node": "^16.11.6",
