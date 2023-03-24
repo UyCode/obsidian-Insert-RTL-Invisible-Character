@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, getIcon, Setting, Command, ToggleComponent, MenuItem } from 'obsidian';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, getIcon, Setting, Command } from 'obsidian';
 interface InsertRTLSettings {
 	showStatusBar: boolean;
 	showRightClick: boolean;
@@ -66,7 +66,6 @@ export default class InsertInvisibleRTL extends Plugin {
 						});
 					});
 				}
-				
 			})
 		);
 	}
