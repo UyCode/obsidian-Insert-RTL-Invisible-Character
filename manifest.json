@@ -4,8 +4,8 @@
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "this plugin is insert a invisible RTL character from Unicode near the cursor, so that other plugins or file can display text in a right way.",
-	"author": "UyCode",
+	"author": "UyCode(Ahmatjan)",
 	"authorUrl": "https://github.com/UyCode/obsidian-Insert-RTL-Invisible-Character",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"fundingUrl": "",
 	"isDesktopOnly": false
 }
