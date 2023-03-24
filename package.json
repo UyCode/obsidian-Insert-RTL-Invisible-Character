@@ -8,7 +8,22 @@
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
 		"version": "node version-bump.mjs && git add manifest.json versions.json"
 	},
-	"keywords": ["obsidian", "plugin", "rtl", "bidirectional", "zwj", "zwnj", "invisible", "character", "unicode", "Uyghur", "arabic", "hebrew", "persian", "urdu"],
+	"keywords": [
+		"obsidian",
+		"plugin",
+		"rtl",
+		"bidirectional",
+		"zwj",
+		"zwnj",
+		"invisible",
+		"character",
+		"unicode",
+		"Uyghur",
+		"arabic",
+		"hebrew",
+		"persian",
+		"urdu"
+	],
 	"author": "UyCode",
 	"license": "MIT",
 	"devDependencies": {

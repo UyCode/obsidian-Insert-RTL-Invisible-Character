@@ -1,12 +1,10 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, getIcon, Setting, Command, ToggleComponent, MenuItem } from 'obsidian';
 interface InsertRTLSettings {
-	mySetting: string;
 	showStatusBar: boolean;
 	showRightClick: boolean;
 }
 
 const DEFAULT_SETTINGS: InsertRTLSettings = {
-	mySetting: 'default',
 	showStatusBar: true,
 	showRightClick: true,
 }
@@ -24,9 +22,8 @@ export default class InsertInvisibleRTL extends Plugin {
 				noticeContent.createEl('div', {text: '🔔 Character has been inserted',
 				attr: {style: 'font-size: 1.2em;'}});
 				// @ts-ignore
-				if (editor.replaceSelection('؜')) {
-					new Notice(noticeContent, 2000);
-				}
+				editor.replaceSelection('؜');
+				new Notice(noticeContent, 2000);
 			}
 		};
 	
