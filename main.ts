@@ -124,7 +124,7 @@ class TabsForSettings extends PluginSettingTab {
 
 		containerEl.empty();
 
-		containerEl.createEl('h2', {text: 'Settings for Plugin Button Display.'});
+		containerEl.createEl('h2', {text: 'Settings for Plugin Button Display'});
 
 		new Setting(containerEl)
 		.setName('Show/Hilde from Status Bar')
