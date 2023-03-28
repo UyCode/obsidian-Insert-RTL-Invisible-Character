@@ -100,9 +100,9 @@ class MoreInfoModal extends Modal {
 	onOpen() {
 		const {contentEl} = this;
 		// make the word AFTER bold and red
-		contentEl.innerHTML = 'This Plugin Insert a invisible RTL Character (U+061C) in Unicode' +
-		 '<h1 style="color:#ff0000; text-align: center;">AFTER</h1>' + 
-		 'the cursor, so that other Plugins or programs can correctly display RTL text even if the First Character is in LTR languages.';
+		contentEl.setText('This Plugin Insert a invisible RTL Character (U+061C) in Unicode ' +
+		 '𝐀𝐅𝐓𝐄𝐑' + 
+		 ' the cursor, so that other Plugins or programs can correctly display RTL text even if the First Character is in LTR languages.');
 	}
 
 	onClose() {
