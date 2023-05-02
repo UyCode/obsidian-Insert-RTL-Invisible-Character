@@ -127,7 +127,7 @@ class TabsForSettings extends PluginSettingTab {
 		containerEl.createEl('h2', {text: 'Settings for Plugin Button Display'});
 
 		new Setting(containerEl)
-		.setName('Show/Hilde from Status Bar')
+		.setName('Show/Hide from Status Bar')
 		.setDesc('turn on to show insert button, or turn off to hide.')
 		.addToggle((toggle) => toggle.setValue(this.plugin.settings.showStatusBar)
 			.onChange((value) => {
@@ -139,7 +139,7 @@ class TabsForSettings extends PluginSettingTab {
 
 		// add new right click menu
 		new Setting(containerEl)
-		.setName('Show/Hilde from Right Click Menu')
+		.setName('Show/Hide from Right Click Menu')
 		.setDesc('turn on to show insert button, or turn off to hide.')
 		.addToggle((toggle) => toggle.setValue(this.plugin.settings.showRightClick)
 			.onChange((value) => {
