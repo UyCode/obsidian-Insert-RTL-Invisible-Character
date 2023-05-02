@@ -35,24 +35,27 @@ var DEFAULT_SETTINGS = {
 var InsertInvisibleRTL = class extends import_obsidian.Plugin {
   async onload() {
     await this.loadSettings();
-    const InsertInvisibleCharCommand = {
-      id: "invisibleCharacter",
-      name: "Insert invisible Character",
-      editorCallback: (editor, view) => {
-        let noticeContent = document.createDocumentFragment();
-        noticeContent.createEl("div", {
-          text: "\u{1F514} Character has been inserted",
-          attr: { style: "font-size: 1.2em;" }
-        });
-        editor.replaceSelection("\u061C");
-        new import_obsidian.Notice(noticeContent, 2e3);
-      }
-    };
     const onClickStatusBarItem = (evt) => {
       if (2 === evt.button) {
         new MoreInfoModal(this.app).open();
       } else {
-        this.app.commands.executeCommandById(InsertInvisibleCharCommand.id);
+        const view = this.app.workspace.getActiveViewOfType(import_obsidian.MarkdownView);
+        const noticeContent = document.createDocumentFragment();
+        if (!view || !view.editor) {
+          noticeContent.createEl("div", {
+            text: "\u26A0\uFE0F No valid Markdown file or position found!",
+            attr: { style: "font-size: 1.2em;" }
+          });
+          new import_obsidian.Notice(noticeContent, 2e3);
+          return;
+        }
+        const editor = view.editor;
+        noticeContent.createEl("div", {
+          text: "\u{1F514} Character has been inserted!",
+          attr: { style: "font-size: 1.2em;" }
+        });
+        editor.replaceSelection("\u061C");
+        new import_obsidian.Notice(noticeContent, 2e3);
       }
     };
     let statusBarItemEl = this.addStatusBarItem();
@@ -69,7 +72,6 @@ var InsertInvisibleRTL = class extends import_obsidian.Plugin {
     statusBarItemEl.setText("InsertRTL");
     statusBarItemEl.style.marginLeft = "5px";
     this.addSettingTab(new TabsForSettings(this.app, this));
-    this.addCommand(InsertInvisibleCharCommand);
     this.registerEvent(
       this.app.workspace.on("editor-menu", (menu) => {
         if (this.settings.showRightClick) {
@@ -91,8 +93,8 @@ var InsertInvisibleRTL = class extends import_obsidian.Plugin {
     await this.saveData(this.settings);
   }
   async changeStatusBar() {
-    let statusBarItemEl = document.getElementById("statusButton");
-    if (statusBarItemEl === null) {
+    const statusBarItemEl = document.getElementById("statusButton");
+    if (!statusBarItemEl) {
       return;
     }
     statusBarItemEl.style.display = this.settings.showStatusBar ? "block" : "none";
@@ -120,14 +122,14 @@ var TabsForSettings = class extends import_obsidian.PluginSettingTab {
     const { containerEl } = this;
     containerEl.empty();
     containerEl.createEl("h2", { text: "Settings for Plugin Button Display" });
-    new import_obsidian.Setting(containerEl).setName("Show/Hilde from Status Bar").setDesc("turn on to show insert button, or turn off to hide.").addToggle(
+    new import_obsidian.Setting(containerEl).setName("Show/Hide from Status Bar").setDesc("turn on to show insert button, or turn off to hide.").addToggle(
       (toggle) => toggle.setValue(this.plugin.settings.showStatusBar).onChange((value) => {
         this.plugin.settings.showStatusBar = !this.plugin.settings.showStatusBar;
         this.plugin.saveSettings();
         this.plugin.changeStatusBar();
       })
     );
-    new import_obsidian.Setting(containerEl).setName("Show/Hilde from Right Click Menu").setDesc("turn on to show insert button, or turn off to hide.").addToggle((toggle) => toggle.setValue(this.plugin.settings.showRightClick).onChange((value) => {
+    new import_obsidian.Setting(containerEl).setName("Show/Hide from Right Click Menu").setDesc("turn on to show insert button, or turn off to hide.").addToggle((toggle) => toggle.setValue(this.plugin.settings.showRightClick).onChange((value) => {
       this.plugin.settings.showRightClick = !this.plugin.settings.showRightClick;
       this.plugin.saveSettings();
     }));

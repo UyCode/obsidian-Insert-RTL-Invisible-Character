@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, getIcon, Setting, Command } from 'obsidian';
+import { App, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, getIcon, Setting } from 'obsidian';
 interface InsertRTLSettings {
 	showStatusBar: boolean;
 	showRightClick: boolean;
@@ -14,25 +14,25 @@ export default class InsertInvisibleRTL extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		const InsertInvisibleCharCommand: Command = {
-			id: 'invisibleCharacter',
-			name: 'Insert invisible Character',
-			editorCallback:(editor: Editor, view: MarkdownView) => {
-				let noticeContent = document.createDocumentFragment();
-				noticeContent.createEl('div', {text: '🔔 Character has been inserted',
-				attr: {style: 'font-size: 1.2em;'}});
-				// @ts-ignore
-				editor.replaceSelection('؜');
-				new Notice(noticeContent, 2000);
-			}
-		};
-	
 		const onClickStatusBarItem = (evt: MouseEvent) => {
 			if (2 === evt.button) {
 				new MoreInfoModal(this.app).open();
 			} else {
 				//@ts-ignore
-				this.app.commands.executeCommandById(InsertInvisibleCharCommand.id);
+				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+				const noticeContent = document.createDocumentFragment();
+				if (!view || !view.editor) {
+					noticeContent.createEl('div', {text: '⚠️ No valid Markdown file or position found!',
+					attr: {style: 'font-size: 1.2em;'}});
+					new Notice(noticeContent, 2000);
+					return;
+				}
+				const editor = view.editor;
+				noticeContent.createEl('div', {text: '🔔 Character has been inserted!',
+				attr: {style: 'font-size: 1.2em;'}});
+				// @ts-ignore
+				editor.replaceSelection('؜');
+				new Notice(noticeContent, 2000);
 			}
 		}
 		
@@ -54,7 +54,6 @@ export default class InsertInvisibleRTL extends Plugin {
 
 		this.addSettingTab(new TabsForSettings(this.app, this));
 
-		this.addCommand(InsertInvisibleCharCommand);
 		this.registerEvent(
 			this.app.workspace.on("editor-menu", (menu) => {
 				if (this.settings.showRightClick) {
@@ -83,9 +82,9 @@ export default class InsertInvisibleRTL extends Plugin {
 
 	async changeStatusBar() {
 		// get element by id
-		let statusBarItemEl = document.getElementById("statusButton");
+		const statusBarItemEl = document.getElementById("statusButton");
 		// don't forget to check for null
-		if (statusBarItemEl === null) {
+		if (!statusBarItemEl) {
 			return;
 		}
 		statusBarItemEl.style.display = this.settings.showStatusBar ? "block" : "none";
