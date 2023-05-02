@@ -37,7 +37,7 @@ export default class InsertInvisibleRTL extends Plugin {
 		}
 		
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
-		var statusBarItemEl = this.addStatusBarItem();
+		let statusBarItemEl = this.addStatusBarItem();
 		statusBarItemEl.setAttr("id", "statusButton");
 		statusBarItemEl.setAttr("aria-label", "Insert a Invisible RTL Character (click right for more info)");
 		statusBarItemEl.setAttr("aria-label-position", "top");
@@ -83,7 +83,7 @@ export default class InsertInvisibleRTL extends Plugin {
 
 	async changeStatusBar() {
 		// get element by id
-		var statusBarItemEl = document.getElementById("statusButton");
+		let statusBarItemEl = document.getElementById("statusButton");
 		// don't forget to check for null
 		if (statusBarItemEl === null) {
 			return;
